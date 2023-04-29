@@ -9,6 +9,7 @@ namespace HaveYouGotAMoment.Packages
 	{
 		private Camera _mainCamera;
 		private Rigidbody2D _rigidbody;
+		private TenantManager _tenantManager;
 		private bool _isBeingDragged = false;
 
 		// Start is called before the first frame update
@@ -22,6 +23,11 @@ namespace HaveYouGotAMoment.Packages
 			if(_rigidbody == null)
 			{
 				_rigidbody = GetComponent<Rigidbody2D>();
+			}
+
+			if (_tenantManager == null)
+			{
+				_tenantManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TenantManager>();
 			}
 		}
 
@@ -42,6 +48,7 @@ namespace HaveYouGotAMoment.Packages
 			if(_isBeingDragged && Input.GetMouseButtonUp(0)) 
 			{
 				_isBeingDragged = false;
+				_tenantManager.TryGivePackageToTenant(gameObject);
 			}
 
 			if(_isBeingDragged)

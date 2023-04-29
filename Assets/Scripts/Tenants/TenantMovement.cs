@@ -61,7 +61,11 @@ namespace HaveYouGotAMoment.Tenants
 
 		public void MoveToSpeak()
 		{
-			_isMoveToSpeak = !_isMoveToSpeak;
+			_isMoveToSpeak = true;
+		}
+		public void ContinueToWayPoint()
+		{
+			_isMoveToSpeak = false;
 		}
 
 		private void SetPosition(Vector3 newPosition)

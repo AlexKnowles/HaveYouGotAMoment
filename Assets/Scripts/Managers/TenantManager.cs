@@ -1,3 +1,4 @@
+using HaveYouGotAMoment.Packages;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace HaveYouGotAMoment
 
 		private GameObject _tenantContainerInWorld;
 		private GameObject[] _tenantsForThisGame;
+		private GameObject _tenantToTakePackage;
 
 		// Start is called before the first frame update
 		void Start()
@@ -50,6 +52,20 @@ namespace HaveYouGotAMoment
 		private void OnEndDay()
 		{
 			// Remove tenants?
+		}
+
+		internal void TryGivePackageToTenant(GameObject package)
+		{
+			if(_tenantToTakePackage is not null)
+			{
+				_tenantToTakePackage.GetComponent<TenantPackageHandler>().RecievePackage(package);
+				_tenantToTakePackage = null;
+			}
+		}
+
+		internal void SetTenantToTakePackage(GameObject tenant)
+		{
+			_tenantToTakePackage = tenant;
 		}
 	}
 }
