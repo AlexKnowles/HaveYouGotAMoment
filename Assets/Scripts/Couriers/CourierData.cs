@@ -8,5 +8,7 @@ namespace HaveYouGotAMoment.Couriers
     {
         public string CourierName = "Generic";
         public int MaxWaitTimeInSeconds = 30;
+
+        public string[] Deliveries = new string[0];
     }
 }
