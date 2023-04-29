@@ -219,6 +219,8 @@ GameObject:
   - component: {fileID: 62463052}
   - component: {fileID: 62463051}
   - component: {fileID: 62463054}
+  - component: {fileID: 62463056}
+  - component: {fileID: 62463055}
   m_Layer: 0
   m_Name: GenericCourier
   m_TagString: Untagged
@@ -337,6 +339,32 @@ MonoBehaviour:
   targetPosition: {fileID: 1004418399}
   entranceExitPosition: {fileID: 258583198}
   speed: 5
+--- !u!114 &62463055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62463050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e651d50205a734275903df606f67739a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &62463056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62463050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2ca2a6a426644b5b261444c3369cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CourierName: Generic
+  MaxWaitTimeInSeconds: 2
 --- !u!1 &248189658
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,12 +15,15 @@ namespace HaveYouGotAMoment.Couriers
         private bool _moveToTarget;
         private bool _moveToExit;
 
+        private CourierDelivery _courierDelivery;
+
         // Start is called before the first frame update
         void Start()
         {
             _moveToTarget = false;
             _moveToExit = false;
             gameObject.transform.position = entranceExitPosition.transform.position;
+            _courierDelivery = gameObject.GetComponent<CourierDelivery>();
         }
 
         // Update is called once per frame
@@ -28,11 +31,23 @@ namespace HaveYouGotAMoment.Couriers
         {
             if (_moveToTarget)
             {
-                moveTowards(new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, transform.position.z));
+                _moveToTarget = moveTowards(new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, transform.position.z));
+
+                // Hideous
+                if (!_moveToTarget)
+                {
+                    // Arrived
+                    _courierDelivery.StartDelivery();
+                }
             }
+            if (_moveToExit)
+            {
+                _moveToExit = moveTowards(new Vector3(entranceExitPosition.transform.position.x, entranceExitPosition.transform.position.y, transform.position.z));
+            }
+
         }
 
-        private void moveTowards(Vector3 position)
+        private bool moveTowards(Vector3 position)
         {
             Vector3 direction = position - transform.position;
 
@@ -47,11 +62,10 @@ namespace HaveYouGotAMoment.Couriers
 
                 // Move towards the target at a constant speed
                 transform.position += direction * speed * Time.deltaTime;
+
+                return true;
             }
-            else
-            {
-                _moveToTarget = false;
-            }
+            return false;
         }
 
         public void StartMovingToTarget()
