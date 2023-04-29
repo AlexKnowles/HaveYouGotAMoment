@@ -46,6 +46,7 @@ namespace HaveYouGotAMoment.Couriers
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     _startedSigning = true;
+                    GetComponent<DrawLineMouseDrag>().Activate();
                 }
             }
 
@@ -70,7 +71,6 @@ namespace HaveYouGotAMoment.Couriers
                 if (!_goToTarget)
                 {
                     GetComponent<BoxCollider2D>().enabled = true;
-                    GetComponent<DrawLineMouseDrag>().Activate();
                 }
             }
         }

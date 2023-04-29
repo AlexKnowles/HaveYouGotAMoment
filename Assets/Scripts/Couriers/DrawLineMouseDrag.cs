@@ -6,7 +6,10 @@ namespace HaveYouGotAMoment.Couriers
 {
     public class DrawLineMouseDrag : MonoBehaviour
     {
+        private Camera _mainCamera;
+
         public LineRenderer Line;
+        public BoxCollider2D Surface;
         public float lineWidth = 0.04f;
         public float minimumVertexDistance = 0.1f;
 
@@ -16,6 +19,10 @@ namespace HaveYouGotAMoment.Couriers
 
         void Start()
         {
+            if (_mainCamera == null)
+            {
+                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            }
             // set the color of the line
             Line.startColor = Color.red;
             Line.endColor = Color.red;
@@ -77,7 +84,19 @@ namespace HaveYouGotAMoment.Couriers
         private void UpdateLine()
         {
             Line.positionCount++;
-            Line.SetPosition(Line.positionCount - 1, GetWorldCoordinate(Input.mousePosition));
+            var clampedPosition = Input.mousePosition;
+            Vector2 mouseInWorldSpace = (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mouseInWorldSpace, Vector2.zero);
+
+            if (hit.collider == null || hit.collider.gameObject != gameObject)
+            {
+                Line.SetPosition(Line.positionCount - 1, Line.GetPosition(Line.positionCount - 2));
+
+            } else
+            {
+                Line.SetPosition(Line.positionCount - 1, GetWorldCoordinate(clampedPosition));
+
+            }
         }
 
         private Vector3 GetWorldCoordinate(Vector3 mousePosition)

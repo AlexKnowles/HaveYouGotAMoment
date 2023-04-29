@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Line: {fileID: 311159081}
+  Surface: {fileID: 311159079}
   lineWidth: 0.04
   minimumVertexDistance: 0.1
 --- !u!120 &311159081

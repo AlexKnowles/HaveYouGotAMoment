@@ -59,11 +59,12 @@ namespace HaveYouGotAMoment
             foreach (var (courierName, courierConfig) in courierConfigs)
             {
                 var courier = Instantiate(CourierPrefab, _courierContainerInWorld.transform);
+                courier.name = "Courier" + courierName;
                 var data = courier.GetComponent<Couriers.CourierData>();
                 data.CourierName = courierName;
                 data.MaxWaitTimeInSeconds = courierConfig.WaitTime;
                 // Add delivery names here:
-                data.Deliveries = new string[0];
+                data.Deliveries = new string[1] { "Joe Bloggs" };
                 var movement = courier.GetComponent<Couriers.CourierMovement>();
                 movement.targetPosition = CourierTargetPosition;
                 movement.entranceExitPosition = CourierEntranceExitPosition;
