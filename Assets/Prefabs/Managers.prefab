@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 184251363999914119}
   - component: {fileID: 4796826159968206827}
+  - component: {fileID: 5143519353209259261}
+  - component: {fileID: 5694601549218878223}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -50,3 +52,30 @@ MonoBehaviour:
   GameDayLengthInHours: 24
   CurrentGameTime: 0
   CurrentGameDay: 0
+--- !u!114 &5143519353209259261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667868724244480294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422b9679fb0f962429270b38cb2219d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PossibleTenants:
+  - {fileID: 6988570459508225034, guid: f99191c6009322c48b914449c3ad4eea, type: 3}
+--- !u!114 &5694601549218878223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667868724244480294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949c781559a95dc4795098d994a5d009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogPrefab: {fileID: 0}
