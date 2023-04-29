@@ -112,6 +112,7 @@ namespace HaveYouGotAMoment.Couriers
                 var package = Instantiate(PackagePrefab, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
                 package.GetComponent<Packages.PackageData>().Courier = _courierGettingSignature.GetComponent<CourierData>().CourierName;
                 package.GetComponent<Packages.PackageData>().Tenant = delivery;
+                package.transform.localScale = new Vector3(Random.Range(0.5f, 2.0f), Random.Range(0.5f, 2.0f), 1);
             }
             End();
         }

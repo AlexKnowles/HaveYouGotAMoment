@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace HaveYouGotAMoment
@@ -13,6 +14,10 @@ namespace HaveYouGotAMoment
         public GameObject CourierPrefab;
 
         private GameObject _courierContainerInWorld;
+
+        public int MaxPackagesPerTenantPerDay = 3;
+
+        private TenantManager _tenantManager;
 
         private Dictionary<string, CourierConfiguration> courierConfigs = new Dictionary<string, CourierConfiguration>()
         {
@@ -38,6 +43,10 @@ namespace HaveYouGotAMoment
         // Start is called before the first frame update
         void Start()
         {
+            if (_tenantManager == null)
+            {
+                _tenantManager = GetComponent<TenantManager>();
+            }
             OnBeginGame();
             OnBeginDay();
         }
@@ -56,24 +65,43 @@ namespace HaveYouGotAMoment
 
         private void OnBeginDay()
         {
+            var names = _tenantManager.GetTenantNames();
+
+            List<(string, int)> namesAndPackageCounts = names.Select(x => (x, Random.Range(0, MaxPackagesPerTenantPerDay + 1))).ToList();
+
             foreach (var (courierName, courierConfig) in courierConfigs)
             {
-                var courier = Instantiate(CourierPrefab, _courierContainerInWorld.transform);
-                courier.name = "Courier" + courierName;
-                var data = courier.GetComponent<Couriers.CourierData>();
-                data.CourierName = courierName;
-                data.MaxWaitTimeInSeconds = courierConfig.WaitTime;
-                // Add delivery names here:
-                data.Deliveries = new string[1] { "Joe Bloggs" };
-                var movement = courier.GetComponent<Couriers.CourierMovement>();
-                movement.targetPosition = CourierTargetPosition;
-                movement.entranceExitPosition = CourierEntranceExitPosition;
-                courier.GetComponent<Couriers.CourierDelivery>().SignatureClipboard = SignatureClipboard;
+                var deliveries = new List<string>();
 
-                // Bit gnarly since we're relying on the thing being setup
-                // but what can you do...
-                courier.GetComponent<Scheduler>().Schedule[0].HourInDay = courierConfig.DeliveryTime + (Random.Range(-1.0f, 1.0f) * courierConfig.ErrorMargin);
-                couriers.Add(courierName, courier);
+                for(int i = 0; i < namesAndPackageCounts.Count; i++)
+                {
+                    if (Random.Range(0, 3) > 0 && namesAndPackageCounts[i].Item2 > 0)
+                    {
+                        deliveries = deliveries.Append(namesAndPackageCounts[i].Item1).ToList();
+                        namesAndPackageCounts[i] = (namesAndPackageCounts[i].Item1,namesAndPackageCounts[i].Item2 - 1);
+                    }
+                }
+
+                if (deliveries.Count > 0)
+                {
+                    var courier = Instantiate(CourierPrefab, _courierContainerInWorld.transform);
+                    courier.name = "Courier" + courierName;
+                    var data = courier.GetComponent<Couriers.CourierData>();
+                    data.CourierName = courierName;
+                    data.MaxWaitTimeInSeconds = courierConfig.WaitTime;
+                    // Add delivery names here:
+                    data.Deliveries = deliveries.ToArray();
+
+                    var movement = courier.GetComponent<Couriers.CourierMovement>();
+                    movement.targetPosition = CourierTargetPosition;
+                    movement.entranceExitPosition = CourierEntranceExitPosition;
+                    courier.GetComponent<Couriers.CourierDelivery>().SignatureClipboard = SignatureClipboard;
+
+                    // Bit gnarly since we're relying on the thing being setup
+                    // but what can you do...
+                    courier.GetComponent<Scheduler>().Schedule[0].HourInDay = courierConfig.DeliveryTime + (Random.Range(-1.0f, 1.0f) * courierConfig.ErrorMargin);
+                    couriers.Add(courierName, courier);
+                }
             };
         }
 
