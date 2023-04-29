@@ -15,6 +15,7 @@ namespace HaveYouGotAMoment.Couriers
         public int speed = 10;
 
         private bool _signing = false;
+        private bool _startedSigning = false;
         private Vector3 _initialPosition;
 
         private bool _goToStart = false;
@@ -44,13 +45,23 @@ namespace HaveYouGotAMoment.Couriers
 
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
-                    PackagesSignedFor();
+                    _startedSigning = true;
                 }
+            }
+
+            if (_startedSigning && Input.GetMouseButtonUp(0))
+            {
+                _startedSigning = false;
+                PackagesSignedFor();
             }
 
             if(_goToStart)
             {
                 _goToStart = moveTowards(_initialPosition);
+                if (!_goToStart)
+                {
+                    GetComponent<DrawLineMouseDrag>().Clear();
+                }
             }
 
             if(_goToTarget)
@@ -59,6 +70,7 @@ namespace HaveYouGotAMoment.Couriers
                 if (!_goToTarget)
                 {
                     GetComponent<BoxCollider2D>().enabled = true;
+                    GetComponent<DrawLineMouseDrag>().Activate();
                 }
             }
         }
@@ -107,6 +119,7 @@ namespace HaveYouGotAMoment.Couriers
         public void End()
         {
             GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<DrawLineMouseDrag>().Deactivate();
             _signing = false;
             _goToTarget = false;
             _goToStart = true;
