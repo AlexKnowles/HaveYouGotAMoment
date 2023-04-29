@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HaveYouGotAMoment.Package
+namespace HaveYouGotAMoment.Packages
 {
     public class PackageData : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using HaveYouGotAMoment.Packages;
 using HaveYouGotAMoment.Tenants;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace HaveYouGotAMoment
     {
         private TenantManager _tenantManager;
 		private TenantMovement _tenantMovement;
+        private TenantData _tenantData;
 
 		// Start is called before the first frame update
 		void Start()
@@ -20,6 +22,10 @@ namespace HaveYouGotAMoment
 			if (_tenantMovement is null)
 			{
 				_tenantMovement = GetComponent<TenantMovement>();
+			}
+			if (_tenantData is null)
+			{
+				_tenantData = GetComponent<TenantData>();
 			}
 		}
 
@@ -35,8 +41,14 @@ namespace HaveYouGotAMoment
 		}
         public void RecievePackage(GameObject package)
         {
-            Destroy(package);
-            _tenantMovement.ContinueToWayPoint();
+            PackageData packageData = package.GetComponent<PackageData>();
+
+            if (packageData.Tenant == _tenantData.TenantName)
+            {
+                Destroy(package.gameObject);
+			}
+
+			_tenantMovement.ContinueToWayPoint();
 		}
 	}
 }

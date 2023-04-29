@@ -110,8 +110,8 @@ namespace HaveYouGotAMoment.Couriers
             foreach (var delivery in deliveries)
             {
                 var package = Instantiate(PackagePrefab, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
-                package.GetComponent<Package.PackageData>().Courier = _courierGettingSignature.GetComponent<CourierData>().CourierName;
-                package.GetComponent<Package.PackageData>().Tenant = delivery;
+                package.GetComponent<Packages.PackageData>().Courier = _courierGettingSignature.GetComponent<CourierData>().CourierName;
+                package.GetComponent<Packages.PackageData>().Tenant = delivery;
             }
             End();
         }
