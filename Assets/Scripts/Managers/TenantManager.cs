@@ -1,6 +1,7 @@
 using HaveYouGotAMoment.Packages;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace HaveYouGotAMoment
@@ -27,14 +28,20 @@ namespace HaveYouGotAMoment
 			
         }
 
+		public string[] GetTenantNames()
+		{
+			return PossibleTenants.Select(x => x.GetComponent<Tenants.TenantData>().TenantName).ToArray();
+		}
+
         private void OnBeginGame()
 		{
-			int randomIndex = Random.Range(0, PossibleTenants.Length);
+			//int randomIndex = Random.Range(0, PossibleTenants.Length);
 
-			_tenantsForThisGame = new GameObject[]
-			{
-				PossibleTenants[randomIndex]
-			};
+			//_tenantsForThisGame = new GameObject[]
+			//{
+			//	PossibleTenants[randomIndex]
+			//};
+			_tenantsForThisGame = PossibleTenants;
 		}
 
 		private void OnBeginDay()

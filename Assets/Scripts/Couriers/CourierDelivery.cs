@@ -37,7 +37,6 @@ namespace HaveYouGotAMoment.Couriers
 
         public void StartDelivery()
         {
-            Debug.Log("Delivery Started");
             _secondsWaiting = 0f;
             _waiting = true;
             _signForPackage.StartGettingSignature(gameObject);
@@ -45,8 +44,6 @@ namespace HaveYouGotAMoment.Couriers
 
         public void EndDelivery()
         {
-            // TODO Close the clipboard if open
-            Debug.Log("Delivery Ended");
             _waiting = false;
             _courierMovement.StartMovingToExit();
         }
