@@ -2,6 +2,7 @@ using HaveYouGotAMoment.Tenants;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HaveYouGotAMoment.Managers
 {
@@ -14,10 +15,14 @@ namespace HaveYouGotAMoment.Managers
 		public string[] PlayerPossibleHellos = new string[] { "Hi", "Hey", "Hello"};
 
 		private Camera _mainCamera;
+		private Image _dialogBackgroundImage;
 		private List<DialogMessage> _dialogMessages = new List<DialogMessage>();
 		private float _maxMessageWidth;
 		private GameObject _tenantToFollow;
 		private TenantMovingDirection _tenantToFollowMovingDirection;
+		private bool _fadeOut = false;
+		private float _fadeDuration = 6;
+		private float _dialogBackgroundImageOriginalAlpha;
 
 		// Start is called before the first frame update
 		void Start()
@@ -42,6 +47,12 @@ namespace HaveYouGotAMoment.Managers
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 			}
 
+			if(_dialogBackgroundImage  == null)
+			{
+				_dialogBackgroundImage = Dialog.GetComponent<Image>();
+				_dialogBackgroundImageOriginalAlpha = _dialogBackgroundImage.color.a;
+			}
+
 			_maxMessageWidth = (DialogMessagePrefab.GetComponent<RectTransform>().rect.width * 0.8f);
 
 			Dialog.SetActive(false);
@@ -49,7 +60,13 @@ namespace HaveYouGotAMoment.Managers
 
 		void Update()
 		{
-			if(_tenantToFollow is null)
+			if(_fadeOut && _dialogBackgroundImage.color.a > 0)
+			{
+				float newImageAlpha = _dialogBackgroundImage.color.a - (Time.deltaTime / _fadeDuration);
+				SetBackgroundImageAlpha(newImageAlpha);
+			}
+
+			if (_tenantToFollow is null)
 			{
 				return;
 			}
@@ -61,7 +78,12 @@ namespace HaveYouGotAMoment.Managers
 
 		public void ShowDialog(GameObject tenantToFollow, TenantMovingDirection movingDirection)
 		{
-			if(movingDirection == TenantMovingDirection.Left)
+			ClearDialog();
+
+			_fadeOut = false;
+			SetBackgroundImageAlpha(_dialogBackgroundImageOriginalAlpha);
+
+			if (movingDirection == TenantMovingDirection.Left)
 			{
 				Dialog.GetComponent<RectTransform>().pivot = new Vector2(1, 0);
 			}
@@ -143,8 +165,20 @@ namespace HaveYouGotAMoment.Managers
 
 				Destroy(selectedDialog.gameObject);
 
-				_dialogMessages.Remove(selectedDialog);
+				_dialogMessages[i] = null;
 			}
+
+			_dialogMessages = _dialogMessages.Where(w => w is not null).ToList();
+		}
+
+		internal void StartFadeOut()
+		{
+			_fadeOut = true;
+		}
+
+		private void SetBackgroundImageAlpha(float alpha)
+		{
+			_dialogBackgroundImage.color = new Color(_dialogBackgroundImage.color.r, _dialogBackgroundImage.color.g, _dialogBackgroundImage.color.b, alpha);
 		}
 	}
 }

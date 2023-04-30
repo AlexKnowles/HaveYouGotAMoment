@@ -77,6 +77,7 @@ namespace HaveYouGotAMoment.Tenants
 					}
 
 					_tenantMovement.Go();
+					_dialogManager.StartFadeOut();
 					_dialogStarted = false;
 				}
 			}
@@ -86,6 +87,8 @@ namespace HaveYouGotAMoment.Tenants
 		{
 			_dialogManager.ShowDialog(DialogSpawnPoint, _tenantMovement.MovingDirection);
 			_dialogManager.SendPlayerHello();
+
+			_initialResponseHasBeenSent = false;
 			_dialogStarted = true;
 		}
 
