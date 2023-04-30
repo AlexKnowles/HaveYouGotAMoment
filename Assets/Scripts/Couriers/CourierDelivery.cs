@@ -46,6 +46,7 @@ namespace HaveYouGotAMoment.Couriers
         {
             _waiting = false;
             _courierMovement.StartMovingToExit();
+            _signForPackage.End();
         }
     }
 }

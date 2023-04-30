@@ -114,7 +114,7 @@ namespace HaveYouGotAMoment.Couriers
                 package.GetComponent<Packages.PackageData>().Tenant = delivery;
                 package.transform.localScale = new Vector3(Random.Range(0.5f, 2.0f), Random.Range(0.5f, 2.0f), 1);
             }
-            End();
+            _courierGettingSignature.GetComponent<CourierDelivery>().EndDelivery();
         }
 
         public void End()
@@ -124,7 +124,6 @@ namespace HaveYouGotAMoment.Couriers
             _signing = false;
             _goToTarget = false;
             _goToStart = true;
-            _courierGettingSignature.GetComponent<CourierDelivery>().EndDelivery();
             _courierGettingSignature = null;
         }
     }
