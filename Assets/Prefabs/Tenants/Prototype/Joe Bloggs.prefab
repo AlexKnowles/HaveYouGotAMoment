@@ -406,7 +406,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d97bf52be3b1442b127e72824ae4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dialog: []
+  InitialResponses:
+  - I do, what's up?
+  PositiveResponses:
+  - Thanks, I've been expecting this!
+  NegativeResponses:
+  - This isn't for me, did you scan it before hand?
   DialogSpawnPoint: {fileID: 2052027477858955303}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

@@ -50,13 +50,12 @@ namespace HaveYouGotAMoment
 			}
 
 			_givenPackage = package;
-			_givenPackage.GetComponent<PackageDragAndDrop>().PackageStartFloat();
 
 			_tenantMovement.Stop();
 			_tenantDialog.BeginDialog();
 		}
 
-		public void ReviewGivenPackage()
+		public bool ReviewGivenPackage()
 		{
 			PackageData packageData = _givenPackage.GetComponent<PackageData>();
 
@@ -64,19 +63,10 @@ namespace HaveYouGotAMoment
 			{
 				TakeGivenPackage();
 			}
-			else
-			{
-				DropGivenPackage();
-			}
 
 			_givenPackage = null;
-			_tenantMovement.Go();
-			_tenantDialog.EndDialog();
-		}
 
-		private void DropGivenPackage()
-		{
-			_givenPackage.GetComponent<PackageDragAndDrop>().PackageStopFloat();
+			return (packageData.Tenant == _tenantData.TenantName);
 		}
 
 		private void TakeGivenPackage()
