@@ -11,6 +11,9 @@ namespace HaveYouGotAMoment
         private TenantManager _tenantManager;
 		private TenantMovement _tenantMovement;
         private TenantData _tenantData;
+		private TenantDialog _tenantDialog;
+
+		private GameObject _givenPackage;
 
 		// Start is called before the first frame update
 		void Start()
@@ -27,6 +30,10 @@ namespace HaveYouGotAMoment
 			{
 				_tenantData = GetComponent<TenantData>();
 			}
+			if (_tenantDialog is null)
+			{
+				_tenantDialog = GetComponent<TenantDialog>();
+			}
 		}
 
         // Update is called once per frame
@@ -35,20 +42,48 @@ namespace HaveYouGotAMoment
         
         }
 
-        public void ReadyToTakePackage()
-        {
-            _tenantManager.SetTenantToTakePackage(gameObject);
-		}
         public void RecievePackage(GameObject package)
         {
-            PackageData packageData = package.GetComponent<PackageData>();
-
-            if (packageData.Tenant == _tenantData.TenantName)
-            {
-                Destroy(package.gameObject);
+			if(_givenPackage is not null)
+			{
+				return;
 			}
 
-			_tenantMovement.ContinueToWayPoint();
+			_givenPackage = package;
+			_givenPackage.GetComponent<PackageDragAndDrop>().PackageStartFloat();
+
+			_tenantMovement.Stop();
+			_tenantDialog.BeginDialog();
+		}
+
+		public void ReviewGivenPackage()
+		{
+			PackageData packageData = _givenPackage.GetComponent<PackageData>();
+
+			if (packageData.Tenant == _tenantData.TenantName)
+			{
+				TakeGivenPackage();
+			}
+			else
+			{
+				DropGivenPackage();
+			}
+
+			_givenPackage = null;
+			_tenantMovement.Go();
+			_tenantDialog.EndDialog();
+		}
+
+		private void DropGivenPackage()
+		{
+			_givenPackage.GetComponent<PackageDragAndDrop>().PackageStopFloat();
+		}
+
+		private void TakeGivenPackage()
+		{
+			Destroy(_givenPackage);
+
+			_tenantDialog.ThankPlayer();
 		}
 	}
 }

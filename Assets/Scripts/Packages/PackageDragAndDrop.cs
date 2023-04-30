@@ -11,6 +11,7 @@ namespace HaveYouGotAMoment.Packages
 		private Rigidbody2D _rigidbody;
 		private TenantManager _tenantManager;
 		private bool _isBeingDragged = false;
+		private bool _isFloating = false;
 
 		// Start is called before the first frame update
 		void Start()
@@ -34,6 +35,13 @@ namespace HaveYouGotAMoment.Packages
 		// Update is called once per frame
 		void Update()
 		{
+			if(_isFloating)
+			{
+				_rigidbody.gravityScale = 0;
+				_rigidbody.velocity = Vector2.zero;
+				return;
+			}
+
 			if(!_isBeingDragged && Input.GetMouseButtonDown(0))
 			{
 				Vector2 mouseInWorldSpace = (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -45,10 +53,12 @@ namespace HaveYouGotAMoment.Packages
 				}    
 			}
 
-			if(_isBeingDragged && Input.GetMouseButtonUp(0)) 
+			if(_isBeingDragged && Input.GetMouseButtonUp(0))
 			{
 				_isBeingDragged = false;
-				_tenantManager.TryGivePackageToTenant(gameObject);
+
+				Vector2 mouseInWorldSpace = (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+				_tenantManager.TryGivePackageToTenant(mouseInWorldSpace, gameObject);
 			}
 
 			if(_isBeingDragged)
@@ -56,7 +66,18 @@ namespace HaveYouGotAMoment.Packages
 				Vector3 mouseInWorldSpace = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				transform.position = new Vector3(mouseInWorldSpace.x, mouseInWorldSpace.y, transform.position.z);
 			}
+
 			_rigidbody.gravityScale = (_isBeingDragged ? 0 : 1);
+		}
+
+		public void PackageStartFloat()
+		{
+			_isFloating = true;
+		}
+
+		public void PackageStopFloat()
+		{
+			_isFloating = false;
 		}
 	}
 }

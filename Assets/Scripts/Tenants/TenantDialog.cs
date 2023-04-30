@@ -11,6 +11,9 @@ namespace HaveYouGotAMoment.Tenants
 		public DialogItem[] Dialog;
 
 		private DialogManager _dialogManager;
+		private TenantPackageHandler _tenantPackageHandler;
+		private bool _dialogStarted = false;
+		private float _timeSinceLastMessage = 0;
 
 		// Start is called before the first frame update
 		void Start()
@@ -19,15 +22,50 @@ namespace HaveYouGotAMoment.Tenants
 			{
 				_dialogManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<DialogManager>();
 			}
-			
+
+			if(_tenantPackageHandler is null)
+			{
+				_tenantPackageHandler = GetComponent<TenantPackageHandler>(); 
+			}			
+		}
+
+		// Update is called once per frame
+		void Update()
+		{
+			if (!_dialogStarted)
+			{
+				return;
+			}
+
+			_timeSinceLastMessage += Time.deltaTime;
+
+			if (_timeSinceLastMessage > 0.7f)
+			{
+				_timeSinceLastMessage = 0;
+				_dialogManager.SendTenantMessage("okay");
+
+				_tenantPackageHandler.ReviewGivenPackage();
+				_dialogStarted = false;
+			}
 		}
 
 		public void BeginDialog()
         {
 			_dialogManager.ShowDialog();
-
+			_dialogManager.SendPlayerHello();
+			_dialogStarted = true;
 		}
-    }
+
+		public void EndDialog()
+		{
+			//_dialogManager.HideDialog();
+			//_dialogManager.ClearDialog();
+		}
+
+		internal void ThankPlayer()
+		{
+		}
+	}
 
 	[Serializable]
 	public struct DialogItem

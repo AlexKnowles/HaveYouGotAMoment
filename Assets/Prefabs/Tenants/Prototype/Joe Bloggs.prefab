@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5588516414760284308}
   - component: {fileID: 8235213718483136613}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4737432418629688370}
   - component: {fileID: 2088572486678529826}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,9 +184,9 @@ GameObject:
   - component: {fileID: 2241663038442315590}
   - component: {fileID: 5550075952322563034}
   - component: {fileID: 5322260070276199623}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Joe Bloggs
-  m_TagString: Untagged
+  m_TagString: Tenant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,43 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnClickTenant:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7213729848002817225}
-        m_TargetAssemblyTypeName: HaveYouGotAMoment.Tenants.TenantMovement, HaveYouGotAMoment
-        m_MethodName: MoveToSpeak
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2241663038442315590}
-        m_TargetAssemblyTypeName: HaveYouGotAMoment.Tenants.TenantDialog, HaveYouGotAMoment
-        m_MethodName: BeginDialog
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5550075952322563034}
-        m_TargetAssemblyTypeName: HaveYouGotAMoment.TenantPackageHandler, HaveYouGotAMoment
-        m_MethodName: ReadyToTakePackage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7257122981437309722
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5292764504871940872}
   - component: {fileID: 3964879277891267739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

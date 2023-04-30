@@ -1,4 +1,5 @@
 using log4net.Util;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace HaveYouGotAMoment.Tenants
 		public float Speed = 2.0f;
 
 		private int _direction = 0;
-		private bool _isMoveToSpeak = false;
+		private bool _stopMoving = false;
 
 		// Start is called before the first frame update
 		void Start()
@@ -25,11 +26,8 @@ namespace HaveYouGotAMoment.Tenants
         // Update is called once per frame
         void Update()
 		{
-
-			if (_isMoveToSpeak)
+			if (_stopMoving)
 			{
-				transform.position = Vector3.Lerp(transform.position, SpeakPoint, Time.deltaTime * (Speed/2));
-
 				return;
 			}
 
@@ -60,18 +58,14 @@ namespace HaveYouGotAMoment.Tenants
 			UpdateLookDirection();
 		}
 
-		public void MoveToSpeak()
+		public void Stop()
 		{
-			_isMoveToSpeak = true;
-		}
-		public void ContinueToWayPoint()
-		{
-			_isMoveToSpeak = false;
+			_stopMoving = true;
 		}
 
 		private void SetPosition(Vector3 newPosition)
 		{
-			if (!_isMoveToSpeak)
+			if (!_stopMoving)
 			{
 				transform.position = newPosition;
 			}
@@ -80,6 +74,11 @@ namespace HaveYouGotAMoment.Tenants
 		private void UpdateLookDirection()
 		{
 			transform.localScale = new Vector3(_direction, transform.localScale.y, transform.localScale.z);
+		}
+
+		internal void Go()
+		{
+			_stopMoving = false;
 		}
 	}
 }

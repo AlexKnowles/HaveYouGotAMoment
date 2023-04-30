@@ -1,39 +1,35 @@
-using HaveYouGotAMoment.Packages;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace HaveYouGotAMoment
 {
-    public class TenantManager : MonoBehaviour
-    {
-        public GameObject[] PossibleTenants;
+	public class TenantManager : MonoBehaviour
+	{
+		public GameObject[] PossibleTenants;
 
 		private GameObject _tenantContainerInWorld;
 		private GameObject[] _tenantsForThisGame;
-		private GameObject _tenantToTakePackage;
 
 		// Start is called before the first frame update
 		void Start()
-        {
+		{
 			_tenantContainerInWorld = new GameObject("TenantContainer");
 			OnBeginGame();
 			OnBeginDay();
 		}
 
-        // Update is called once per frame
-        void Update()
-        {
-			
-        }
+		// Update is called once per frame
+		void Update()
+		{
+
+		}
 
 		public string[] GetTenantNames()
 		{
 			return PossibleTenants.Select(x => x.GetComponent<Tenants.TenantData>().TenantName).ToArray();
 		}
 
-        private void OnBeginGame()
+		private void OnBeginGame()
 		{
 			//int randomIndex = Random.Range(0, PossibleTenants.Length);
 
@@ -50,7 +46,7 @@ namespace HaveYouGotAMoment
 				return;
 
 			// Load in tenats for the day
-			foreach(GameObject tenant in _tenantsForThisGame)
+			foreach (GameObject tenant in _tenantsForThisGame)
 			{
 				Instantiate(tenant, _tenantContainerInWorld.transform);
 			}
@@ -61,18 +57,22 @@ namespace HaveYouGotAMoment
 			// Remove tenants?
 		}
 
-		internal void TryGivePackageToTenant(GameObject package)
+		internal void TryGivePackageToTenant(Vector2 mouseInWorldSpace, GameObject package)
 		{
-			if(_tenantToTakePackage is not null)
-			{
-				_tenantToTakePackage.GetComponent<TenantPackageHandler>().RecievePackage(package);
-				_tenantToTakePackage = null;
-			}
-		}
+			RaycastHit2D[] hits = Physics2D.RaycastAll(mouseInWorldSpace, Vector2.zero);
 
-		internal void SetTenantToTakePackage(GameObject tenant)
-		{
-			_tenantToTakePackage = tenant;
+			foreach(RaycastHit2D hit in hits)
+			{
+				if (!hit.collider.gameObject.CompareTag("Tenant"))
+				{
+					continue;
+				}
+				
+				TenantPackageHandler tenantToTakePackage = hit.collider.gameObject.GetComponent<TenantPackageHandler>();
+				tenantToTakePackage.RecievePackage(package);
+
+				break;
+			}
 		}
 	}
 }
