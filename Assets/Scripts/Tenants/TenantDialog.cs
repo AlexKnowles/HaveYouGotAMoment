@@ -9,9 +9,11 @@ namespace HaveYouGotAMoment.Tenants
     public class TenantDialog : MonoBehaviour
     {
 		public DialogItem[] Dialog;
+		public GameObject DialogSpawnPoint;
 
 		private DialogManager _dialogManager;
 		private TenantPackageHandler _tenantPackageHandler;
+		private TenantMovement _tenantMovement;
 		private bool _dialogStarted = false;
 		private float _timeSinceLastMessage = 0;
 
@@ -27,6 +29,11 @@ namespace HaveYouGotAMoment.Tenants
 			{
 				_tenantPackageHandler = GetComponent<TenantPackageHandler>(); 
 			}			
+
+			if(_tenantMovement  is null)
+			{
+				_tenantMovement = GetComponent<TenantMovement>();
+			}
 		}
 
 		// Update is called once per frame
@@ -39,7 +46,7 @@ namespace HaveYouGotAMoment.Tenants
 
 			_timeSinceLastMessage += Time.deltaTime;
 
-			if (_timeSinceLastMessage > 0.7f)
+			if (_timeSinceLastMessage > 1.2f)
 			{
 				_timeSinceLastMessage = 0;
 				_dialogManager.SendTenantMessage("okay");
@@ -51,7 +58,7 @@ namespace HaveYouGotAMoment.Tenants
 
 		public void BeginDialog()
         {
-			_dialogManager.ShowDialog();
+			_dialogManager.ShowDialog(DialogSpawnPoint, _tenantMovement.MovingDirection);
 			_dialogManager.SendPlayerHello();
 			_dialogStarted = true;
 		}

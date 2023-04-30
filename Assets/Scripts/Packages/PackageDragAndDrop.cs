@@ -35,12 +35,6 @@ namespace HaveYouGotAMoment.Packages
 		// Update is called once per frame
 		void Update()
 		{
-			if(_isFloating)
-			{
-				_rigidbody.gravityScale = 0;
-				_rigidbody.velocity = Vector2.zero;
-				return;
-			}
 
 			if(!_isBeingDragged && Input.GetMouseButtonDown(0))
 			{
