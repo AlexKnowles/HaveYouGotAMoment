@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace HaveYouGotAMoment.Couriers
@@ -43,7 +44,6 @@ namespace HaveYouGotAMoment.Couriers
                 Vector3 mousePos = GetWorldCoordinate(Input.mousePosition);
 
                 Line.positionCount = 2;
-                // TODO Clamp inside box
                 Line.SetPosition(0, mousePos);
                 Line.SetPosition(1, mousePos);
                 isLineStarted = true;
@@ -73,6 +73,14 @@ namespace HaveYouGotAMoment.Couriers
         public void Deactivate()
         {
             _canDraw = false;
+        }
+
+        public void MovePoints(Vector3 offset)
+        {
+            Vector3[] positions = new Vector3[Line.positionCount];
+            Line.GetPositions(positions);
+            positions = positions.Select(x => x + offset).ToArray();
+            Line.SetPositions(positions);
         }
 
         public void Clear()
