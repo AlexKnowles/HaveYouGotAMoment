@@ -9,7 +9,7 @@ namespace HaveYouGotAMoment
         private Managers.DayManager _dayManager;
         private SpriteRenderer _skyRenderer;
 
-        private Color[] _skyColors = new Color[]
+        public Color[] _skyColors = new Color[]
         {
             new Color( 0.05420079f, 0.08420169f, 0.1320755f, 1f ),
             new Color( 0.9622642f, 0.9070576f, 0.503827f, 1f ),
