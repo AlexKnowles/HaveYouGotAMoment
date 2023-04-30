@@ -11,6 +11,7 @@ namespace HaveYouGotAMoment
         private TextMeshPro _displayText;
 
         public GameObject DisplayText;
+        public GameObject DisplayBackdrop;
 
         public string DefaultText = "-- Ready --";
 
@@ -64,7 +65,7 @@ namespace HaveYouGotAMoment
                 Destroy(displayTenant.GetComponent<Tenants.TenantClick>());
                 Destroy(displayTenant.GetComponent<Tenants.TenantMovement>());
                 Destroy(displayTenant.GetComponent<TenantPackageHandler>());
-                displayTenant.transform.position = new Vector3(transform.position.x, transform.position.y, 0.1f);
+                displayTenant.transform.position = new Vector3(transform.position.x, transform.position.y, DisplayBackdrop.transform.position.z - 1.5f);
                 displayTenant.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
                 _displayTenant = displayTenant;
             }
