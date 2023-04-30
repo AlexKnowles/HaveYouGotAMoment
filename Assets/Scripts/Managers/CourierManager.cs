@@ -24,17 +24,23 @@ namespace HaveYouGotAMoment
             { "SGK", new CourierConfiguration {
                 DeliveryTime = 7.8f,
                 ErrorMargin = 0.5f,
-                WaitTime = 30
+                WaitTime = 30,
+                Primary = new Color(0.5f, 0.5f, 1f),
+                Secondary = new Color(1f, 0.5f, 0.5f),
             } },
             { "Valdivian", new CourierConfiguration {
                 DeliveryTime = 11f,
                 ErrorMargin = 2f,
-                WaitTime = 15
+                WaitTime = 15,
+                Primary = new Color(1f, 0.5f, 1f),
+                Secondary = new Color(0.5f, 0.5f, 0.5f),
             }  },
             { "Sovereign Post", new CourierConfiguration {
                 DeliveryTime = 14.5f,
                 ErrorMargin = 1f,
-                WaitTime = 45
+                WaitTime = 45,
+                Primary = new Color(1f, 0.5f, 0.5f),
+                Secondary = new Color(0.5f, 1f, 0.5f),
             }  },
         };
 
@@ -75,7 +81,7 @@ namespace HaveYouGotAMoment
 
                 for(int i = 0; i < namesAndPackageCounts.Count; i++)
                 {
-                    if (Random.Range(0, 3) > 0 && namesAndPackageCounts[i].Item2 > 0)
+                    if (deliveries.Count < 3 && Random.Range(0, 3) > 0 && namesAndPackageCounts[i].Item2 > 0)
                     {
                         deliveries = deliveries.Append(namesAndPackageCounts[i].Item1).ToList();
                         namesAndPackageCounts[i] = (namesAndPackageCounts[i].Item1,namesAndPackageCounts[i].Item2 - 1);
@@ -87,8 +93,11 @@ namespace HaveYouGotAMoment
                     var courier = Instantiate(CourierPrefab, _courierContainerInWorld.transform);
                     courier.name = "Courier" + courierName;
                     var data = courier.GetComponent<Couriers.CourierData>();
+                    var styling = courier.GetComponent<Couriers.CourierStyling>();
                     data.CourierName = courierName;
                     data.MaxWaitTimeInSeconds = courierConfig.WaitTime;
+                    data.Color = courierConfig.Primary;
+                    data.SecondaryColor = courierConfig.Secondary;
                     // Add delivery names here:
                     data.Deliveries = deliveries.ToArray();
 
@@ -120,5 +129,7 @@ namespace HaveYouGotAMoment
         public float DeliveryTime;
         public float ErrorMargin;
         public int WaitTime;
+        public Color Primary;
+        public Color Secondary;
     }
 }

@@ -23,12 +23,18 @@ namespace HaveYouGotAMoment.Couriers
 
         private GameObject _courierGettingSignature;
 
+        private DrawLineMouseDrag _dragLineMouseDrag;
+
         // Start is called before the first frame update
         void Start()
         {
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            }
+            if (_dragLineMouseDrag == null)
+            {
+                _dragLineMouseDrag = GetComponent<DrawLineMouseDrag>();
             }
             _initialPosition = transform.position;
             GetComponent<BoxCollider2D>().enabled = false;
@@ -46,7 +52,7 @@ namespace HaveYouGotAMoment.Couriers
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
                     _startedSigning = true;
-                    GetComponent<DrawLineMouseDrag>().Activate();
+                    _dragLineMouseDrag.Activate();
                 }
             }
 
@@ -58,16 +64,22 @@ namespace HaveYouGotAMoment.Couriers
 
             if(_goToStart)
             {
-                _goToStart = moveTowards(_initialPosition);
+                var (keepMoving, positionDifference) = moveTowards(_initialPosition);
+                _goToStart = keepMoving;
                 if (!_goToStart)
                 {
-                    GetComponent<DrawLineMouseDrag>().Clear();
+                    _dragLineMouseDrag.Clear();
+                }
+                else
+                {
+                    _dragLineMouseDrag.MovePoints(positionDifference);
                 }
             }
 
             if(_goToTarget)
             {
-                _goToTarget = moveTowards(TargetPosition.transform.position);
+                var (keepMoving, _) = moveTowards(TargetPosition.transform.position);
+                _goToTarget = keepMoving;
                 if (!_goToTarget)
                 {
                     GetComponent<BoxCollider2D>().enabled = true;
@@ -75,7 +87,7 @@ namespace HaveYouGotAMoment.Couriers
             }
         }
 
-        private bool moveTowards(Vector3 position)
+        private (bool, Vector3) moveTowards(Vector3 position)
         {
             Vector3 direction = position - transform.position;
 
@@ -86,13 +98,14 @@ namespace HaveYouGotAMoment.Couriers
             {
                 // Normalize the direction vector
                 direction.Normalize();
+                Vector3 moveThisMuch = direction * speed * Time.deltaTime;
 
                 // Move towards the target at a constant speed
-                transform.position += direction * speed * Time.deltaTime;
+                transform.position += moveThisMuch;
 
-                return true;
+                return (true, moveThisMuch);
             }
-            return false;
+            return (false, new Vector3());
         }
 
         public void StartGettingSignature(GameObject courier)
@@ -106,12 +119,14 @@ namespace HaveYouGotAMoment.Couriers
         public void PackagesSignedFor()
         {
             GetComponent<BoxCollider2D>().enabled = false;
-            var deliveries = _courierGettingSignature.GetComponent<CourierData>().Deliveries;
+            var courierData = _courierGettingSignature.GetComponent<CourierData>();
+            var deliveries = courierData.Deliveries;
             foreach (var delivery in deliveries)
             {
                 var package = Instantiate(PackagePrefab, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
-                package.GetComponent<Packages.PackageData>().Courier = _courierGettingSignature.GetComponent<CourierData>().CourierName;
+                package.GetComponent<Packages.PackageData>().Courier = courierData.CourierName;
                 package.GetComponent<Packages.PackageData>().Tenant = delivery;
+                package.GetComponent<Packages.PackageData>().TapeColor = courierData.Color;
                 package.transform.localScale = new Vector3(Random.Range(0.5f, 2.0f), Random.Range(0.5f, 2.0f), 1);
             }
             _courierGettingSignature.GetComponent<CourierDelivery>().EndDelivery();

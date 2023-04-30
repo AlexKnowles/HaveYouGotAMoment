@@ -8,5 +8,6 @@ namespace HaveYouGotAMoment.Packages
     {
         public string Courier;
 		public string Tenant;
+        public Color TapeColor = new Color(1f, 1f, 1f);
 	}
 }
