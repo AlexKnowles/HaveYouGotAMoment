@@ -17,8 +17,11 @@ namespace HaveYouGotAMoment.Managers
         public float FadeTimeInGameHours = 0.10f;
 
         public GameObject BlackoutSprite;
+        public GameObject StartNewDayButton;
         private SpriteRenderer _blackoutSpriteRenderer;
         private Color _baseColor;
+
+        private bool _timeRunning = true;
         
 		// Start is called before the first frame update
 		void Start()
@@ -35,7 +38,10 @@ namespace HaveYouGotAMoment.Managers
         // Update is called once per frame
         void Update()
         {
-            CurrentGameTime += (Time.deltaTime / GameHoursInRealSeconds);
+            if (_timeRunning)
+            {
+                CurrentGameTime += (Time.deltaTime / GameHoursInRealSeconds);
+            }
             var (inFadeTime, opacity) = InStartOrEndOfShift();
             if (inFadeTime)
             {
@@ -48,6 +54,7 @@ namespace HaveYouGotAMoment.Managers
 
             if(CurrentGameTime >= PlayerShiftEndGameHour)
             {
+                StartNewDayButton.SetActive(true);
                 EndDay();
 			}
         }
@@ -67,23 +74,17 @@ namespace HaveYouGotAMoment.Managers
             return (false, 0f);
         }
 
-        private float CalculateBlackoutOpacity()
-        {
-            
-            return 0f;
-        }
-
-        private void StartNewDay()
+        public void StartNewDay()
 		{
 			CurrentGameDay++;
 			CurrentGameTime = PlayerShiftStartGameHour;
+            StartNewDayButton.SetActive(false);
+            _timeRunning = true;
 		}
 
         private void EndDay()
         {
-            // Do stuff
-
-			StartNewDay();
+            _timeRunning = false;
 		}
     }
 }
