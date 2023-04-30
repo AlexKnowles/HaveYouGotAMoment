@@ -46,6 +46,11 @@ namespace HaveYouGotAMoment
 
         private void UpdateDisplay()
         {
+            if (_displayTenant != null)
+            {
+                Destroy(_displayTenant);
+                _displayTenant = null;
+            }
             if (_package != null)
             {
                 var tenantName = _package.GetComponent<Packages.PackageData>().Tenant;
@@ -59,16 +64,13 @@ namespace HaveYouGotAMoment
                 Destroy(displayTenant.GetComponent<Tenants.TenantClick>());
                 Destroy(displayTenant.GetComponent<Tenants.TenantMovement>());
                 Destroy(displayTenant.GetComponent<TenantPackageHandler>());
+                displayTenant.transform.position = new Vector3(transform.position.x, transform.position.y, -0.6f);
+                displayTenant.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
                 _displayTenant = displayTenant;
             }
             else
             {
                 _text = DefaultText;
-                if (_displayTenant != null)
-                {
-                    Destroy(_displayTenant);
-                    _displayTenant = null;
-                }
             }
         }
     }
