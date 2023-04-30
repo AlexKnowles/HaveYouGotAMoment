@@ -81,7 +81,7 @@ namespace HaveYouGotAMoment
 
                 for(int i = 0; i < namesAndPackageCounts.Count; i++)
                 {
-                    if (Random.Range(0, 3) > 0 && namesAndPackageCounts[i].Item2 > 0)
+                    if (deliveries.Count < 3 && Random.Range(0, 3) > 0 && namesAndPackageCounts[i].Item2 > 0)
                     {
                         deliveries = deliveries.Append(namesAndPackageCounts[i].Item1).ToList();
                         namesAndPackageCounts[i] = (namesAndPackageCounts[i].Item1,namesAndPackageCounts[i].Item2 - 1);
