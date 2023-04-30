@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4796826159968206827}
   - component: {fileID: 5143519353209259261}
   - component: {fileID: 5694601549218878223}
+  - component: {fileID: 6771256902061028074}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -79,3 +80,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogPrefab: {fileID: 0}
+  MessageBubblePrefab: {fileID: 8756863837567004875, guid: 5b92ea7fc1dc04f42a4a15e8e1b7189e, type: 3}
+--- !u!114 &6771256902061028074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667868724244480294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465f164d9cfc64235b353b9130aad52b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SignatureClipboard: {fileID: 0}
+  CourierTargetPosition: {fileID: 0}
+  CourierEntranceExitPosition: {fileID: 0}
+  CourierPrefab: {fileID: 4992938536857196543, guid: 2bde2123ecbba487b8f141f38aa9ff58, type: 3}
