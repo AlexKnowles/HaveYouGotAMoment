@@ -17,6 +17,8 @@ namespace HaveYouGotAMoment.Couriers
 
         private CourierDelivery _courierDelivery;
 
+        private Vector3 _courierInitScale;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -24,6 +26,7 @@ namespace HaveYouGotAMoment.Couriers
             _moveToExit = false;
             gameObject.transform.position = entranceExitPosition.transform.position;
             _courierDelivery = gameObject.GetComponent<CourierDelivery>();
+            _courierInitScale = gameObject.transform.localScale;
         }
 
         // Update is called once per frame
@@ -31,8 +34,9 @@ namespace HaveYouGotAMoment.Couriers
         {
             if (_moveToTarget)
             {
-                _moveToTarget = moveTowards(new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, transform.position.z));
 
+                _moveToTarget = moveTowards(new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, transform.position.z));
+                gameObject.transform.localScale = _courierInitScale;
                 // Hideous
                 if (!_moveToTarget)
                 {
@@ -42,6 +46,7 @@ namespace HaveYouGotAMoment.Couriers
             }
             if (_moveToExit)
             {
+                gameObject.transform.localScale = new Vector3(-_courierInitScale.x, _courierInitScale.y, _courierInitScale.z);
                 _moveToExit = moveTowards(new Vector3(entranceExitPosition.transform.position.x, entranceExitPosition.transform.position.y, transform.position.z));
             }
 
