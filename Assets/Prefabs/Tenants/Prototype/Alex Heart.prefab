@@ -439,11 +439,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - Sure, I've got a moment. What can I help you with?
+  - Yes, I can spare a moment. What do you need?
+  - Of course, what's up?
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Thanks, this is what I was waiting for. I appreciate it.
+  - Oh, great. This must be the package I was expecting. Thank you!
+  - Yes, that's mine. Thanks for letting me know.
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - I'm sorry, but I think you gave me the wrong package. This isn't mine.
+  - I think there's been a mistake. This isn't the package I was expecting.
+  - I'm afraid this isn't mine. Can you check the scanner?
   DialogSpawnPoint: {fileID: 6231902357787498717}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

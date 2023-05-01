@@ -439,11 +439,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - Certainly, I have some time available. What can I assist you with?
+  - Yes, I can allocate some time. What is the matter?
+  - Of course, please go ahead and let me know how I can help you.
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Thank you very much for delivering the package to me. It is much appreciated.
+  - This is the package I was expecting. Thank you for delivering it to me.
+  - This package is for me. Thank you for handling it and bringing it to my attention.
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - I believe there has been a mistake. This package does not belong to me.
+  - 'I am sorry to say that this is not the package that I was anticipating. '
+  - Would you please verify the recipient information and assist me in finding my
+    package?
   DialogSpawnPoint: {fileID: 2052027477858955303}
 --- !u!114 &5550075952322563034
 MonoBehaviour:
