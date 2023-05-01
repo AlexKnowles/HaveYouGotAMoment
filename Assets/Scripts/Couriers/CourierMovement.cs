@@ -1,3 +1,4 @@
+using Codice.CM.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +49,9 @@ namespace HaveYouGotAMoment.Couriers
             {
                 gameObject.transform.localScale = new Vector3(-_courierInitScale.x, _courierInitScale.y, _courierInitScale.z);
                 _moveToExit = moveTowards(new Vector3(entranceExitPosition.transform.position.x, entranceExitPosition.transform.position.y, transform.position.z));
-            }
+			}
 
-        }
+		}
 
         private bool moveTowards(Vector3 position)
         {
@@ -65,10 +66,13 @@ namespace HaveYouGotAMoment.Couriers
                 // Normalize the direction vector
                 direction.Normalize();
 
-                // Move towards the target at a constant speed
-                transform.position += direction * speed * Time.deltaTime;
+				// Move towards the target at a constant speed
+				transform.position += direction * speed * Time.deltaTime;
 
-                return true;
+				float yOffset = Mathf.Sin(Time.time * 10) * speed * 0.0005f;
+				transform.localPosition += new Vector3(0, yOffset, 0);
+
+				return true;
             }
             return false;
         }
