@@ -355,11 +355,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - Absolutely! I always have a moment for a friend. What's up?
+  - Of course, I'd love to help you. What do you need?
+  - Yes, I've got a moment! What can I do for you?
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Yay! My package has finally arrived! Thank you so much!
+  - Oh, wonderful! This must be my delivery! Thank you, thank you!
+  - Fantastic! This is the package I've been waiting for. Thanks a million!
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - Oops, it seems like there has been a little mix-up. This isn't what I was expecting.
+  - Oh no, this isn't mine. I'm sure we can sort it out, though!
+  - Oh dear, it looks like there's been a bit of a mistake. Can you test the scanner?
   DialogSpawnPoint: {fileID: 8095730201567457084}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

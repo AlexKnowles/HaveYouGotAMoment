@@ -439,11 +439,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - Yo, what's up? I've got all the time in the world!
+  - Yeah, I'm totally free right now! What's going on?
+  - For sure! What's good? You need something?
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Sweet, that's gotta be for me! Thanks a ton!
+  - Awesome, this is definitely mine! You rock!
+  - Dope, that's the package I was waiting on! Thanks a bunch!
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - Oh, snap! This ain't mine, my bad!
+  - Oops, looks like you got the wrong person. That's not my package!
+  - Uh, I think you got the wrong person. This package ain't mine!
   DialogSpawnPoint: {fileID: 4235119222561155982}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

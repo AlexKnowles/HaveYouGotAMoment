@@ -439,11 +439,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - What do you want now? Fine, what is it?
+  - I guess so, what's the problem?
+  - What do you need?
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Finally something goes right today. Thanks.
+  - Great. Fine, give it here.
+  - About time. What do you want me to say, thank you?
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - Of course, just what I needed, someone else's problem.
+  - Not surprised, just another thing going wrong today.
+  - Great, now I have to deal with this too.
   DialogSpawnPoint: {fileID: 1786697711261241998}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

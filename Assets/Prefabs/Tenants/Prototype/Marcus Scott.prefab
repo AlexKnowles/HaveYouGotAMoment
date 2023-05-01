@@ -439,11 +439,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialResponses:
-  - I do, what's up?
+  - Quick, what's up?
+  - Speak.
+  - Yes?
   PositiveResponses:
-  - Thanks, I've been expecting this!
+  - Good. Gimme.
+  - Right package. Thanks.
+  - Mine. Going now.
   NegativeResponses:
-  - This isn't for me, did you scan it beforehand?
+  - No.
+  - Not mine.
+  - Mistake.
   DialogSpawnPoint: {fileID: 1672248748420111439}
 --- !u!114 &5550075952322563034
 MonoBehaviour:
