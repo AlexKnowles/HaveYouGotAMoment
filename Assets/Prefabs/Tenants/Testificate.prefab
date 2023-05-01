@@ -359,7 +359,7 @@ MonoBehaviour:
   PositiveResponses:
   - Thanks, I've been expecting this!
   NegativeResponses:
-  - This isn't for me, did you scan it before hand?
+  - This isn't for me, did you scan it beforehand?
   DialogSpawnPoint: {fileID: 8817479060610182268}
 --- !u!114 &5550075952322563034
 MonoBehaviour:

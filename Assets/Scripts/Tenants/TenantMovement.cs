@@ -1,38 +1,34 @@
-using log4net.Util;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HaveYouGotAMoment.Tenants
 {
-    public class TenantMovement : MonoBehaviour
+	public class TenantMovement : MonoBehaviour
 	{
 		public Vector3 FrontDoorSpawnPoint = new Vector3(11, 0, 2);
 		public Vector3 OfficeDoorSpawnPoint = new Vector3(-11, 0, 2);
 		public Vector3 SpeakPoint = new Vector3(0, 0, 2);
 		public float Speed = 2.0f;
 		public TenantMovingDirection MovingDirection { get; private set; }
-		
+
 		private int _direction = 0;
 		private bool _stopMoving = false;
 
 		// Start is called before the first frame update
 		void Start()
-        {
+		{
 			EnterFromFrontDoor();
 			MovingDirection = TenantMovingDirection.Right;
 		}
 
-        // Update is called once per frame
-        void Update()
+		// Update is called once per frame
+		void Update()
 		{
 			if (_stopMoving)
 			{
 				return;
 			}
 
-			if((MovingDirection == TenantMovingDirection.Left && transform.position.x < OfficeDoorSpawnPoint.x)
+			if ((MovingDirection == TenantMovingDirection.Left && transform.position.x < OfficeDoorSpawnPoint.x)
 				|| (MovingDirection == TenantMovingDirection.Right && transform.position.x > FrontDoorSpawnPoint.x))
 			{
 				return;
@@ -46,7 +42,7 @@ namespace HaveYouGotAMoment.Tenants
 			transform.localPosition += new Vector3(0, yOffset, 0);
 		}
 
-        public void EnterFromFrontDoor()
+		public void EnterFromFrontDoor()
 		{
 			MovingDirection = TenantMovingDirection.Left;
 			SetPosition(FrontDoorSpawnPoint);
