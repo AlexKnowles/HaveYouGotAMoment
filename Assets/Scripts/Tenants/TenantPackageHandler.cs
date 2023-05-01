@@ -1,5 +1,6 @@
 using HaveYouGotAMoment.Packages;
 using HaveYouGotAMoment.Tenants;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,21 +60,18 @@ namespace HaveYouGotAMoment
 		{
 			PackageData packageData = _givenPackage.GetComponent<PackageData>();
 
-			if (packageData.Tenant == _tenantData.TenantName)
-			{
-				TakeGivenPackage();
-			}
-
-			_givenPackage = null;
-
 			return (packageData.Tenant == _tenantData.TenantName);
 		}
 
-		private void TakeGivenPackage()
+		public void TakeGivenPackage()
 		{
 			Destroy(_givenPackage);
+			_givenPackage = null;
+		}
 
-			_tenantDialog.ThankPlayer();
+		internal void RejectPackage()
+		{
+			_givenPackage = null;
 		}
 	}
 }

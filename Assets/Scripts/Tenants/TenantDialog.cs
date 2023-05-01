@@ -68,12 +68,13 @@ namespace HaveYouGotAMoment.Tenants
 					{
 						int randomMessage = Random.Range(0, PositiveResponses.Length);
 						_dialogManager.SendTenantMessage(PositiveResponses[randomMessage]);
-
+						_tenantPackageHandler.TakeGivenPackage();
 					}
 					else
 					{
 						int randomMessage = Random.Range(0, NegativeResponses.Length);
 						_dialogManager.SendTenantMessage(NegativeResponses[randomMessage]);
+						_tenantPackageHandler.RejectPackage();
 					}
 
 					_tenantMovement.Go();
@@ -90,10 +91,6 @@ namespace HaveYouGotAMoment.Tenants
 
 			_initialResponseHasBeenSent = false;
 			_dialogStarted = true;
-		}
-
-		internal void ThankPlayer()
-		{
 		}
 	}
 }
