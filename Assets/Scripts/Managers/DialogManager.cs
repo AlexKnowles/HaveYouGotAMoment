@@ -11,6 +11,8 @@ namespace HaveYouGotAMoment.Managers
 		public GameObject Dialog;
 		public GameObject DialogMessageContainer;
 		public GameObject DialogMessagePrefab;
+		public Color PlayerMessageColour;
+		public Color TenantMessageColour;
 
 		public string[] PlayerPossibleHellos = new string[] { "Hi", "Hey", "Hello"};
 
@@ -106,16 +108,16 @@ namespace HaveYouGotAMoment.Managers
 		public void AddMessage(DialogMessageSender sender, string message)
 		{
 			DialogMessage newMessageBubble = Instantiate(DialogMessagePrefab, DialogMessageContainer.transform).GetComponent<DialogMessage>();
-
 			DialogMessageSide messageSide = DialogMessageSide.Right;
+			Color messageColour = (sender == DialogMessageSender.Player ? PlayerMessageColour : TenantMessageColour);
 
-			if(sender == DialogMessageSender.Tenant && _tenantToFollowMovingDirection == TenantMovingDirection.Right
+			if (sender == DialogMessageSender.Tenant && _tenantToFollowMovingDirection == TenantMovingDirection.Right
 				|| sender == DialogMessageSender.Player && _tenantToFollowMovingDirection == TenantMovingDirection.Left)
 			{
 				messageSide = DialogMessageSide.Left;
 			}
 
-			newMessageBubble.Setup(messageSide, message, _maxMessageWidth);
+			newMessageBubble.Setup(messageSide, message, _maxMessageWidth, messageColour);
 
 			MoveExistingMessagesUp(newMessageBubble.Height);
 

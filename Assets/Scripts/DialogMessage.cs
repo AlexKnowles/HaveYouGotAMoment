@@ -10,6 +10,7 @@ namespace HaveYouGotAMoment
 	{
 		public TextMeshProUGUI TextMesh;
 
+
 		public float Height
 		{
 			get
@@ -38,6 +39,7 @@ namespace HaveYouGotAMoment
 		private Image _messageBackgroundImage;
 		private float _maxWidth;
 		private DialogMessageSide _displaySide;
+		private Color _messageColour;
 
 		private void Start()
 		{
@@ -74,10 +76,12 @@ namespace HaveYouGotAMoment
 		}
 
 
-		internal void Setup(DialogMessageSide displaySide, string message, float maxWidth)
+		internal void Setup(DialogMessageSide displaySide, string message, float maxWidth, Color messageColour)
 		{
 			_maxWidth = maxWidth;
 			_displaySide = displaySide;
+
+			_messageColour = messageColour;
 			TextMesh.SetText(message);
 
 			StartCoroutine(DelayedUpdatingSizeForAFrame());
@@ -97,6 +101,7 @@ namespace HaveYouGotAMoment
 			}
 
 			_rectTransform.sizeDelta = new Vector2(Width, Height);
+			_messageBackgroundImage.color = _messageColour;
 			ShowMessage();
 		}
 
